@@ -42,9 +42,6 @@ def get_stems(rus_text):
 def main():
     get_stems(input_file)
     for stem in all_stems:
-        # if stem not in [
-        #        '.',',',';',':','?','!','...','`','"',"'",'-','„','”',
-        #        ]:
         print stem.encode('utf8'),
 
 if __name__ == '__main__':
