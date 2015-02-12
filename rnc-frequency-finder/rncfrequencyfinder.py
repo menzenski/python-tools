@@ -16,11 +16,11 @@ import codecs
 
 ## designate a file with the words you want to search for
 ## (One word per line)
-input_file = "listofwords.txt"
+input_file = "listofwords_ignore.txt"
 
 ## designate a file for saving the results
 ## (this will be rewritten every time this script is run)
-results_file = 'rncfrequencies.txt'
+results_file = 'rncfrequencies_ignore.txt'
 
 def corpus_search(search_term):
     '''Return the number of occurrences of a lemma (search_term) in the

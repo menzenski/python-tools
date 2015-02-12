@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 ##########
-## rncfrequencyfinder.py Version 1.0 (2014-10-20)
+## russianstemmer.py Version 1.0 (2015-02-12)
 ##
 ## Original author: Matthew Menzenski (menzenski@ku.edu)
 ##
@@ -37,12 +37,17 @@ def get_stems(rus_text):
     for token in tokens:
         bare_stem = stemmer.stem(unicode(token))
         all_stems.append(bare_stem)
-    
+
+def write_to_file(target_file, unicode_list):
+    with codecs.open(target_file, "a", encoding="utf-8") as stream:
+        for unicode_item in unicode_list:
+            stream.write("%s " % unicode_item)
 
 def main():
     get_stems(input_file)
-    for stem in all_stems:
-        print stem.encode('utf8'),
+    #for stem in all_stems:
+    #    print stem.encode('utf8'),
+    write_to_file(results_file, all_stems)
 
 if __name__ == '__main__':
     main()
