@@ -14,10 +14,10 @@ from unicodedata import category
 from nltk.stem import SnowballStemmer
 
 # text you'd like to stem
-input_file = 'russiantext_ignore.txt'
+input_file = 'WarAndPeaceFull_ignore.txt'
 
 # place to save the stemmed text
-results_file = 'stemmedrussiantext_ignore.txt'
+results_file = 'stemmedWarAndPeace_ignore.txt'
 
 # list of all stemmed tokens
 all_stems = []
