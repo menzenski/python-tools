@@ -136,8 +136,8 @@ class RussianWord(object):
         for source in sources:
             print source 
 
-    def find_bare_tokens(self):
-        for page in self.all_results_page_urls:
+#    def find_bare_tokens(self):
+#        for page in self.all_results_page_urls:
 
 def main():
     #for search_term in search_terms:
