@@ -10,8 +10,8 @@ while `oldrussiansearcher.py` searches the
 [старорусский подкорпус / Old Russian subcorpus](http://ruscorpora.ru/search-mid_rus.html). There
 are two scripts which search the
 [основной корпус / Main corpus](http://ruscorpora.ru/search-main.html),
-`modernrussiansearcherto1799` and
-`modernrussiansearcher1800to1899`. They're separate files because at
+`modernrussiansearcherto1799.py` and
+`modernrussiansearcher1800to1899.py`. They're separate files because at
 first I wasn't interested in data later than 1800. I might combine
 them. (I might actually try to combine all the scripts into one
 general search tool, but that's a project for a later time.)
