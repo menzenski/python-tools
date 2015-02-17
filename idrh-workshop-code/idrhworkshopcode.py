@@ -245,3 +245,51 @@ fdist6.plot(50, cumulative=True)
 fdist.plot(50, cumulative=False)
 
 fdist6.plot(50, cumulative=False)
+
+## ----------------------------------------------------------------------------
+## digging deeper into concordances
+
+text6 = nltk.Text(text_content2)
+
+text6.concordance("boy")
+# Building index...
+# Displaying 11 of 11 matches:
+# Piotr hear Get things ready good boy look sharp Piotr modernised serv
+# exquisite day today welcome dear boy Yes spring full loveliness Thoug
+# unny afraid frogs observed Vaska boy seven head white flax bare feet
+# while Explain please earthly use boy know time throw rubbish idea rom
+# ount said Arkady drawing Unhappy boy wailed Pavel Petrovitch positive
+# ugh reckoned liberal advise dear boy go call Governor said Arkady und
+# reethinking women said low voice boy far observations go freethinkers
+# arked Arkady seen ups downs dear boy known hard way charming observed
+# ollowing rejoinder re still fool boy see Sitnikovs indispensable unde
+# nt added indicating shortcropped boy come blue fullskirted coat ragge
+#  owe change said Katya conceited boy came Arkady went ve reached twen
+
+text.concordance("boy")
+# Displaying 10 of 10 matches:
+# ear ? Get things ready , my good boy : look sharp.' Piotr , who as a
+#  of frogs , ' observed Vaska , a boy of seven , with a head as white
+# t 's no earthly use. He 's not a boy , you know ; it 's time to throw
+# y , drawing himself up. 'Unhappy boy ! ' wailed Pavel Petrovitch , he
+# liberal. 'I advise you , my dear boy , to go and call on the Governor
+# id in a low voice. 'Because , my boy , as far as my observations go ,
+#  's seen ups and downs , my dear boy ; she 's known what it is to be
+# der : 'You 're still a fool , my boy , I see. Sitnikovs are indispens
+# ded , indicating a short-cropped boy , who had come in with him in a 
+# tya. 'I am not now the conceited boy I was when I came here , ' Arkad
+
+text.similar("boy")
+# man child girl part rule sense sister woman advise and bird bit blade
+# boast bookcase bottle box brain branch bucket
+
+text.common_contexts(["boy", "girl"])
+# a_of a_who # both of these words occurred between "a" and "of"
+             # and between "a" and "who"
+
+text.concordance("girl")
+# Displaying 4 of 15 matches:
+# stic housewife , but as a young girl with a slim figure , innocently
+# o his two daughters -- Anna , a girl of twenty , and Katya , a child
+#  paws , and after him entered a girl of eighteen , black-haired and
+#  turned to a bare-legged little girl of thirteen in a bright red cot

@@ -1,3 +1,7 @@
+# I want to ignore certain text files
+*_ignore.txt
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
