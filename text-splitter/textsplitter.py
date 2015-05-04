@@ -12,25 +12,50 @@
 import itertools as it
 import math
 
-filename = 'WarAndPeaceEnglish.txt'
 
-chapter_counter = -0.5
+def split_war_and_peace():
+    filename = "WarAndPeaceEnglish.txt"
+    chapter_counter = -0.5
+    with open(filename,"r") as f:
+        for key,group in it.groupby(f,lambda line: line.startswith("@\n")):
+            chapter_counter += 0.5
+            if len(str(math.trunc(chapter_counter))) == 1: 
+                chapter_filename = "Chapter00{chap}.txt".format(
+                    chap=math.trunc(chapter_counter))
+            elif len(str(math.trunc(chapter_counter))) == 2: 
+                chapter_filename = "Chapter0{chap}.txt".format(
+                    chap=math.trunc(chapter_counter))
+            elif len(str(math.trunc(chapter_counter))) == 3: 
+                chapter_filename = "Chapter{chap}.txt".format(
+                    chap=math.trunc(chapter_counter))
+            else:
+                print "whoops!"
+            if not key:
+                with open(chapter_filename, "a") as stream:
+                    for line in group:
+                        stream.write(line)
 
-with open(filename,'r') as f:
-    for key,group in it.groupby(f,lambda line: line.startswith('@\n')):
-        chapter_counter += 0.5
-        if len(str(math.trunc(chapter_counter))) == 1: 
-            chapter_filename = "Chapter00{chap}.txt".format(
-                chap=math.trunc(chapter_counter))
-        elif len(str(math.trunc(chapter_counter))) == 2: 
-            chapter_filename = "Chapter0{chap}.txt".format(
-                chap=math.trunc(chapter_counter))
-        elif len(str(math.trunc(chapter_counter))) == 3: 
-            chapter_filename = "Chapter{chap}.txt".format(
-                chap=math.trunc(chapter_counter))
-        else:
-            print "whoops!"
-        if not key:
-            with open(chapter_filename, 'a') as stream:
-                for line in group:
-                    stream.write(line)
+def split_we():
+    filename = "WeEnglish.txt"
+    chapter_counter = -1.5
+    with open(filename,"r") as f:
+        for key,group in it.groupby(f,lambda line: line.startswith("@\n")):
+            chapter_counter += 0.5
+            if len(str(math.trunc(chapter_counter))) == 1: 
+                chapter_filename = "Chapter0{chap}.txt".format(
+                    chap=math.trunc(chapter_counter))
+            elif len(str(math.trunc(chapter_counter))) == 2: 
+                chapter_filename = "Chapter{chap}.txt".format(
+                    chap=math.trunc(chapter_counter))
+            elif len(str(math.trunc(chapter_counter))) == 3: 
+                chapter_filename = "Chapter{chap}.txt".format(
+                    chap=math.trunc(chapter_counter))
+            else:
+                print "whoops!"
+            if not key:
+                with open(chapter_filename, "a") as stream:
+                    for line in group:
+                        stream.write(line)
+
+if __name__ == "__main__":
+    split_we()
