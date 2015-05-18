@@ -1,6 +1,9 @@
 # I want to ignore certain text files
 *_ignore.txt
 
+# Need to ignore ebook files themselves; I don't own the rights to them
+*.azw3
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
