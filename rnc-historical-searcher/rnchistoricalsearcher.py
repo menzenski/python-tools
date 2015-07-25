@@ -36,6 +36,60 @@
 """Return frequency and year for items in the historical corpora of the RNC."""
 
 from urllib import FancyURLopener
+import re
+
+## TODO: Rewrite this as a "RNCSource" class with a date() method (Should I?)
+def source_date(full_source_name_as_string):
+    """Return numerical date ranges from source name string."""
+
+    # if date is provided in parentheses (most common)
+    if re.findall('\(.*?\)', full_source_name_as_string):
+        date_string = re.findall('\(.*?\)', full_source_name_as_string)
+
+        ## TYPE (1400-1500), (1441-1442)
+        if re.findall('\A\d{4}-\d{4}\Z', date_string[0][1:-1]):
+            dates = re.findall('\A\d{4}-\d{4}\Z', date_string[0][1:-1])
+            date_begin = int(dates[0].split("-")[0])
+            date_end = int(dates[0].split("-")[1])
+            date_middle = (date_begin + date_end) / 2.0
+
+        ## TYPE (1550), (1570)
+        elif len(date_string) == 6:
+            date_year = int(re.findall('\A\d{4}\Z', date_string[0][1:-1])[0])
+            date_begin = date_year
+            date_middle = date_year
+            date_end = date_year
+
+        ## TYPE (1423.02.20), (1436.06.13)
+        elif len(date_string) == 12:
+            date_year = int(re.findall('\A\d{4}', date_string[0][1:-1])[0])
+            date_begin = date_year
+            date_middle = date_year
+            date_end = date_year
+
+        ## TODO: Is this elif clause captured by the next one? (Yes?)
+        # date possibly in another format
+        elif re.findall('\d{4}', date_string[0])[0]:
+            date_year = int(re.findall('\d{4}', date_string[0])[0])
+            date_begin = date_year
+            date_middle = date_year
+            date_end = date_year
+
+    # if date is given outside parentheses (less common)
+    elif re.findall('\d{4}', full_source_name_as_string):
+        date_string = re.findall('\d{4}', full_source_name_as_string)
+        date_begin = int(date_string[0])
+        date_middle = int(date_string[0])
+        date_end = int(date_string[0])
+
+    # if date not given at all (common for earliest texts)
+    else:
+        date_begin, date_middle, date_end = 0, 0, 0
+        print "No date found"
+
+    ## TODO: Make this not return a tuple (i.e., rewrite function as class)
+    return date_begin, date_middle, date_end
+
 
 class MyOpener(FancyURLopener):
     """FancyURLopener object with custom User-Agent field."""
@@ -54,34 +108,40 @@ class RNCSearchTerm(object):
     """Object containing all (past-tense) forms of a search term."""
 
     def __init__(self):
-        pass
+        self.ancient_simplex = {}
 
-class RNCSearchAbstract(object):
-    """Generic RNC search object."""
-
-    def __init__(self):
-        pass
-
-class RNCSearchAncient(RNCSearchAbstract):
+class RNCSearchAncient(object):
     """Search of the 'ancient' subcorpus of the Russian National Corpus."""
 
     def __init__(self):
-        super(RNCSearchAncient, self).__init__()
+        pass
 
-class RNCSearchOld(RNCSearchAbstract):
+class RNCSearchOld(object):
     """Search of the 'old' subcorpus of the Russian National Corpus."""
 
     def __init__(self):
-        super(RNCSearchOld, self).__init__()
+        pass
 
-class RNCSearchModern(RNCSearchAbstract):
+class RNCSearchModern(object):
     """Search of the 'modern' corpus of the Russian National Corpus"""
 
     def __init__(self):
-        super(RNCSearchModern, self).__init__()
+        pass
 
 def main():
-    pass
+    sources = [
+        "Неизвестный. Модест и София (1810) ",
+        "К нашему любимому празднику: все угощенье -- на стол! // «Даша», 2004",
+        "Ирина Гнатюк. Найден источник горячей воды (2003) // «Богатей» (Саратов), 2003.05.22",
+        "Бельский летописец (1630-1635)",
+        "Летописец 1619-1691 гг (1692) ",
+        "Киевская летопись",
+        "Шамиль Аляутдинов. Мусульмане: кто они? (1997-1999)",
+        "Киевская летопись (1623.03.04)",
+        ]
+    for source in sources:
+        print source,
+        print source_date(source)
 
 if __name__ == "__main__":
     main()
