@@ -39,58 +39,6 @@ from urllib import FancyURLopener
 from bs4 import BeautifulSoup as Soup
 import re
 
-## TODO: Rewrite this as a "RNCSource" class with a date() method (Should I?)
-def source_date(full_source_name_as_string):
-    """Return numerical date ranges from source name string."""
-
-    # if date is provided in parentheses (most common)
-    if re.findall('\(.*?\)', full_source_name_as_string):
-        date_string = re.findall('\(.*?\)', full_source_name_as_string)
-
-        ## TYPE (1400-1500), (1441-1442)
-        if re.findall('\A\d{4}-\d{4}\Z', date_string[0][1:-1]):
-            dates = re.findall('\A\d{4}-\d{4}\Z', date_string[0][1:-1])
-            date_begin = int(dates[0].split("-")[0])
-            date_end = int(dates[0].split("-")[1])
-            date_middle = (date_begin + date_end) / 2.0
-
-        ## TYPE (1550), (1570)
-        elif len(date_string) == 6:
-            date_year = int(re.findall('\A\d{4}\Z', date_string[0][1:-1])[0])
-            date_begin = date_year
-            date_middle = date_year
-            date_end = date_year
-
-        ## TYPE (1423.02.20), (1436.06.13)
-        elif len(date_string) == 12:
-            date_year = int(re.findall('\A\d{4}', date_string[0][1:-1])[0])
-            date_begin = date_year
-            date_middle = date_year
-            date_end = date_year
-
-        ## TODO: Is this elif clause captured by the next one? (Yes?)
-        # date possibly in another format
-        elif re.findall('\d{4}', date_string[0])[0]:
-            date_year = int(re.findall('\d{4}', date_string[0])[0])
-            date_begin = date_year
-            date_middle = date_year
-            date_end = date_year
-
-    # if date is given outside parentheses (less common)
-    elif re.findall('\d{4}', full_source_name_as_string):
-        date_string = re.findall('\d{4}', full_source_name_as_string)
-        date_begin = int(date_string[0])
-        date_middle = int(date_string[0])
-        date_end = int(date_string[0])
-
-    # if date not given at all (common for earliest texts)
-    else:
-        date_begin, date_middle, date_end = 0, 0, 0
-        print "No date found"
-
-    ## TODO: Make this not return a tuple (i.e., rewrite function as class)
-    return date_begin, date_middle, date_end
-
 class RNCSource(object):
     """One source in RNC search results."""
 
