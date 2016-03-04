@@ -19,8 +19,17 @@ from urllib import urlopen
 ## ----------------------------------------------------------------------------
 ## Getting data from a plain-text file on the internet
 ##
-url = "http://menzenski.pythonanywhere.com/text/fathers_and_sons.txt"
+# url = "http://menzenski.pythonanywhere.com/text/fathers_and_sons.txt"
 # url = "http://www.gutenberg.org/cache/epub/30723/pg30723.txt" # alternative
+
+## pythonanywhere made it harder to share files, so this is our workaround
+url = "fathers_and_sons.txt"
+
+## specify the path to your files
+# pfx = "/home/<your pythonanywhere username>/<folder name>/"
+pfx = "/home/menzenski/static/"
+
+url = pfx + url
 
 raw = urlopen(url).read()
 ## note that the above line is equivalent to the following two:
@@ -82,7 +91,10 @@ raw.find("CHAPTER I")
 
 ## ----------------------------------------------------------------------------
 ## Pulling text from an HTML file
-web_url = "http://menzenski.pythonanywhere.com/text/blog_post.html"
+## web_url = "http://menzenski.pythonanywhere.com/text/blog_post.html"
+
+## filename workaround, again
+web_url = pfx + "blog_post.html"
 
 web_html = urlopen(web_url).read()
 
