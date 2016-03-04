@@ -34,7 +34,7 @@ len(raw)
 # 448367
 
 raw[:70]
-"The Project Gutenberg eBook, Fathers and Children, by Ivan Sergeevich\n"
+# "The Project Gutenberg eBook, Fathers and Children, by Ivan Sergeevich\n"
 
 
 ## ----------------------------------------------------------------------------
