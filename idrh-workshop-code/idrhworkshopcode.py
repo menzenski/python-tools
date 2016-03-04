@@ -58,7 +58,7 @@ type(tokens)
 # <type "list">
 
 len(tokens)
-# 91736
+# 98862
 
 tokens[:10]
 # ["The", "Project", "Gutenberg", "eBook", ",", "Fathers", "and", "Children",
@@ -104,9 +104,15 @@ web_html = urlopen(web_url).read()
 web_html[:60]
 # '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">\n<html><head>\n'
 
-web_raw = nltk.clean_html(web_html)
+from bs4 import BeautifulSoup
 
-web_tokens = nltk.word_tokenize(web_raw)
+soup = BeautifulSoup(web_html)
+
+print(soup.prettify())
+
+web_raw = soup.get_text()
+
+web_tokens = nltk.WordPunctTokenizer().tokenize(web_raw)
 
 web_tokens[:10]
 # ["This", "is", "a", "web", "page", "!", "This", "is", "a", "heading"]
@@ -138,7 +144,7 @@ fdist
 
 vocab = fdist.keys()
 
-vocab[:50]
+fdist.most_common(50)
 # [",", "the", "to", "and", "a", "of", "'", "in", ";", "he", "you",
 # "his", "I", "was", "?", "with", "'s", "that", "not", "her", "it",
 # "at", "...", "for", "on", "!", "is", "had", "him", "Bazarov", "but",
@@ -155,7 +161,7 @@ fdist2 = nltk.FreqDist(clean_text)
 
 vocab2 = fdist2.keys()
 
-vocab2[:50]
+fdist2.most_common(50)
 # ["", "the", "to", "and", "a", "of", "in", "you", "I", "he", "his",
 # "was", "with", "s", "that", "her", "not", "it", "at", "him",
 # "Bazarov", "for", "on", "is", "had", "but", "as", "she", "Arkady",
@@ -168,9 +174,7 @@ lower_text = [word.lower() for word in text]
 
 fdist3 = nltk.FreqDist(lower_text)
 
-vocab3 = fdist3.keys()
-
-vocab3[:50]
+fdist3.most_common(50)
 # [",", "the", "to", "and", "a", "of", "'", "he", "in", "you", ";",
 # "his", "i", "was", "?", "with", "that", "'s", "not", "her", "it",
 # "at", "but", "she", "...", "for", "on", "is", "!", "had", "him",
@@ -184,13 +188,17 @@ from nltk.corpus import stopwords
 
 stopwords = stopwords.words("english")
 
+type(stopwords)
+
+len(stopwords)
+
+stopwords[:10]
+
 content = [word for word in text if word.lower() not in stopwords]
 
 fdist4 = nltk.FreqDist(content)
 
-content_vocab = fdist4.keys()
-
-content_vocab[:50]
+fdist4.most_common(50)
 # [",", "'", ";", "?", "'s", "...", "!", "Bazarov", "--", "n't", "Arkady", "Petrovitch", "one", "I", ".", "said", "Pavel", "like", "Nikolai", "little", "even", "man", "though", "know", "time", "went", "could", "say", "Anna", "would", "Sergyevna", "Vassily", "old", "What", "began", "'You", "come", "see", "Madame", "go", "Ivanovitch", "must", "us", "''", "eyes", "good", "young", "'m", "Odintsov", "without"]
 
 # let's combine all three methods to clean up our distribution of words
@@ -201,9 +209,7 @@ text_content = [word for word in text_nopunct if word.lower() not in stopwords]
 
 fdist5 = nltk.FreqDist(text_content)
 
-vocab5 = fdist5.keys()
-
-vocab5[:50]
+fdist5.most_common(50)
 # ["", "Bazarov", "Arkady", "Petrovitch", "nt", "one", "said", "Pavel",
 # "like", "Nikolai", "little", "man", "even", "time", "though", "know",
 # "went", "say", "could", "Sergyevna", "Anna", "would", "Vassily",
@@ -223,9 +229,7 @@ text_content2 = [word for word in text_nopunct if word.lower(
 
 fdist6 = nltk.FreqDist(text_content2)
 
-vocab6 = fdist6.keys()
-
-vocab6[:50]
+fdist6.most_common(50)
 # ["Bazarov", "Arkady", "Petrovitch", "one", "said", "Pavel", "like",
 # "Nikolai", "little", "man", "even", "time", "though", "know", "went",
 # "say", "could", "Sergyevna", "Anna", "would", "Vassily", "began",
