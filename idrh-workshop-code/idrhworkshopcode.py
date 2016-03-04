@@ -16,6 +16,9 @@ import nltk
 import re
 from urllib import urlopen
 
+## get necessary data files, etc for the NLTK
+nltk.download()
+
 ## ----------------------------------------------------------------------------
 ## Getting data from a plain-text file on the internet
 ##
