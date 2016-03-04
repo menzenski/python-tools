@@ -52,7 +52,7 @@ raw[:70]
 ## ----------------------------------------------------------------------------
 ## Tokenize the text
 
-tokens = nltk.word_tokenize(raw)
+tokens = nltk.WordPunctTokenizer().tokenize(raw)
 
 type(tokens)
 # <type "list">
